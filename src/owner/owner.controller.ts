@@ -33,14 +33,14 @@ export class ownerController {
 
   @Post()
   async createOwner(
-    @Body() { name, cpf, email, petEspecies, petName, role }: ownerDto,
+    @Body() { name, cpf, email, password, petName, role }: ownerDto,
   ): Promise<IOwnerEntity> {
     try {
       return await this.service.createOwner({
         name,
         cpf,
         email,
-        petEspecies,
+        password,
         petName,
         role,
       });

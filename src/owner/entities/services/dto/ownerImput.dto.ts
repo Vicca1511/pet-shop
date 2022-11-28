@@ -27,7 +27,7 @@ export class ownerDto {
     @IsNotEmpty()
     @ApiProperty()
     @IsString()
-    petEspecies: string
+    password: string
     
     @IsNotEmpty()
     @ApiProperty()
