@@ -5,7 +5,7 @@ import { partialOwnerDto } from './dto/partialOwner.dto';
 
 export class ownerService {
   createOwners(): IOwnerEntity[] | PromiseLike<IOwnerEntity[]> {
-      throw new Error('Method not implemented.');
+    throw new Error('Method not implemented.');
   }
   private owners: IOwnerEntity[] = [];
 
@@ -25,15 +25,29 @@ export class ownerService {
     const updatedOwner = this.owners.find((owner) => owner.id === ownerDta.id);
     return updatedOwner;
   }
+
   async getAllOwners(): Promise<IOwnerEntity[]> {
     return this.owners;
   }
 
-  async getOwnerById(ownerId: string): Promise<boolean> {
+  async getOwnerById(ownerId: string): Promise<IOwnerEntity> {
     const IsRealOwner = this.owners.find((owner) => owner.id === ownerId);
-    
+    if (!IsRealOwner) {
+      throw new Error('User not found');
+    }
+    return IsRealOwner;
+  }
+
+  async deleteOwnerById(ownerId: string): Promise<boolean> {
+    const IsRealOwner = this.owners.find((owner) => owner.id === ownerId);
     if (!IsRealOwner) {
       return false;
     }
+    this.owners.map((owner, index) => {
+      if (owner.id === ownerId) {
+        this.owners.splice(index, 1);
+      }
+    });
+    return true;
   }
 }
