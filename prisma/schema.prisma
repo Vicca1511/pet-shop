@@ -9,3 +9,14 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+model Owner{
+  id String @id @unique
+  name String 
+  email String @unique
+  cpf String @unique
+  petName String
+  password String
+  role String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
