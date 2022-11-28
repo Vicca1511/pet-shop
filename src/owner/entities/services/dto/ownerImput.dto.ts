@@ -1,24 +1,36 @@
 import { ApiProperty } from '@nestjs/swagger' 
-import { IsEmail, IsString } from 'class-validator'
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator'
 
 export class ownerDto {
     
+    @IsNotEmpty()
+    @ApiProperty()
     @IsString()
     name: string
-    
+
+    @IsNotEmpty()
+    @ApiProperty()
     @IsString()
     @IsEmail()
     email: string
     
+    @IsNotEmpty()
+    @ApiProperty()
     @IsString()
     cpf: string
     
+    @IsNotEmpty()
+    @ApiProperty()
     @IsString()
     petName: string
     
+    @IsNotEmpty()
+    @ApiProperty()
     @IsString()
     petEspecies: string
     
+    @IsNotEmpty()
+    @ApiProperty()
     @IsString()
     role: string
 }
