@@ -13,7 +13,8 @@ import { ownerDto } from './entities/services/dto/ownerImput.dto';
 import { partialOwnerDto } from './entities/services/dto/partialOwner.dto';
 import { ownerService } from './entities/services/owner.service';
 
-@Controller()
+
+@Controller('owner')
 export class ownerController {
   constructor(private service: ownerService) {}
 

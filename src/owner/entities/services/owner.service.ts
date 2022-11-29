@@ -2,36 +2,30 @@ import { ownerDto } from './dto/ownerImput.dto';
 import { IOwnerEntity } from '../owner.entity';
 import { randomUUID } from 'crypto';
 import { partialOwnerDto } from './dto/partialOwner.dto';
+import { Injectable } from '@nestjs/common';
+import { OwnerRepository } from 'src/owner/owner.repository';
 
+@Injectable()
 export class ownerService {
-  createOwners(): IOwnerEntity[] | PromiseLike<IOwnerEntity[]> {
-    throw new Error('Method not implemented.');
-  }
-  private owners: IOwnerEntity[] = [];
+  constructor(private readonly ownerrepository: OwnerRepository) {}
 
   async createOwner(owner: ownerDto): Promise<IOwnerEntity> {
     const ownerEntity = { ...owner, id: randomUUID() };
-    this.owners.push(ownerEntity);
-    return ownerEntity;
+    const ownerCreated = await this.ownerrepository.createOwner(ownerEntity);
+    return ownerCreated;
   }
 
   async updateOwner(ownerDta: partialOwnerDto): Promise<IOwnerEntity> {
-    this.owners.map((owner, index) => {
-      if (owner.id === ownerDta.id) {
-        const updatedOwner = Object.assign(owner, ownerDta);
-        this.owners.splice(index, 1, updatedOwner);
-      }
-    });
-    const updatedOwner = this.owners.find((owner) => owner.id === ownerDta.id);
+    const updatedOwner = await this.ownerrepository.updateOwner(ownerDta);
     return updatedOwner;
   }
 
   async getAllOwners(): Promise<IOwnerEntity[]> {
-    return this.owners;
+    return this.ownerrepository.findAllOwners();
   }
 
   async getOwnerById(ownerId: string): Promise<IOwnerEntity> {
-    const IsRealOwner = this.owners.find((owner) => owner.id === ownerId);
+    const IsRealOwner = this.ownerrepository.findUserById(ownerId);
     if (!IsRealOwner) {
       throw new Error('User not found');
     }
@@ -39,15 +33,16 @@ export class ownerService {
   }
 
   async deleteOwnerById(ownerId: string): Promise<boolean> {
-    const IsRealOwner = this.owners.find((owner) => owner.id === ownerId);
-    if (!IsRealOwner) {
+    try {
+      const IsRealOwner = this.ownerrepository.deleteOwner(ownerId);
+      if (IsRealOwner) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (err) {
+      console.log(err);
       return false;
     }
-    this.owners.map((owner, index) => {
-      if (owner.id === ownerId) {
-        this.owners.splice(index, 1);
-      }
-    });
-    return true;
   }
 }
