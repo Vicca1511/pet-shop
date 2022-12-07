@@ -34,7 +34,7 @@ export class ownerService {
 
   async deleteOwnerById(ownerId: string): Promise<boolean> {
     try {
-      const IsRealOwner = this.ownerrepository.deleteOwner(ownerId);
+      const IsRealOwner = await this.ownerrepository.deleteOwner(ownerId);
       if (IsRealOwner) {
         return true;
       } else {
