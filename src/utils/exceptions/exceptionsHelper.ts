@@ -19,8 +19,8 @@ export function handleException({ exception, message }: IException) {
     );
   }
 
-  if (exception === Exceptions.InvalidData) {
-    throw new BadRequestException(message ? message : 'Invalid Data');
+  if (exception === Exceptions.InvalidData || exception === Exceptions.NotFoundData) {
+    throw new BadRequestException(message ? message : 'Data Error');
   }
 
   if (exception === Exceptions.UnauthorizedException) {

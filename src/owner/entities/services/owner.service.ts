@@ -4,28 +4,35 @@ import { randomUUID } from 'crypto';
 import { partialOwnerDto } from './dto/partialOwner.dto';
 import { Injectable } from '@nestjs/common';
 import { OwnerRepository } from 'src/owner/owner.repository';
+import { Exceptions } from 'src/utils/exceptions/exceptionsHelper';
+import { Exception } from 'src/utils/exceptions/exceptions';
 
 @Injectable()
 export class ownerService {
-  constructor(private readonly ownerrepository: OwnerRepository) {}
+  constructor(private readonly OwnerRepository: OwnerRepository) {}
 
   async createOwner(owner: ownerDto): Promise<IOwnerEntity> {
     const ownerEntity = { ...owner, id: randomUUID() };
-    const ownerCreated = await this.ownerrepository.createOwner(ownerEntity);
+    if (owner.password.length < 4) {
+      throw new Exception(
+        Exceptions.InvalidData,
+        'Invalid password , must have more than 4 characters',
+      );
+    }
+    const ownerCreated = await this.OwnerRepository.createOwner(ownerEntity);
     return ownerCreated;
   }
-
   async updateOwner(ownerDta: partialOwnerDto): Promise<IOwnerEntity> {
-    const updatedOwner = await this.ownerrepository.updateOwner(ownerDta);
+    const updatedOwner = await this.OwnerRepository.updateOwner(ownerDta);
     return updatedOwner;
   }
 
   async getAllOwners(): Promise<IOwnerEntity[]> {
-    return this.ownerrepository.findAllOwners();
+    return this.OwnerRepository.getAllOwners();
   }
 
   async getOwnerById(ownerId: string): Promise<IOwnerEntity> {
-    const IsRealOwner = this.ownerrepository.findUserById(ownerId);
+    const IsRealOwner = this.OwnerRepository.findUserById(ownerId);
     if (!IsRealOwner) {
       throw new Error('User not found');
     }
@@ -34,7 +41,7 @@ export class ownerService {
 
   async deleteOwnerById(ownerId: string): Promise<boolean> {
     try {
-      const IsRealOwner = await this.ownerrepository.deleteOwner(ownerId);
+      const IsRealOwner = await this.OwnerRepository.deleteOwner(ownerId);
       if (IsRealOwner) {
         return true;
       } else {

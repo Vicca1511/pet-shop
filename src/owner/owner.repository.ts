@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Exception } from 'src/utils/exceptions/exceptions';
+import { Exceptions } from 'src/utils/exceptions/exceptionsHelper';
 import { IOwnerEntity } from './entities/owner.entity';
 import { partialOwnerDto } from './entities/services/dto/partialOwner.dto';
 
@@ -26,10 +28,14 @@ export class OwnerRepository {
     });
     return deletedOwner;
   }
-
-  async findAllOwners(): Promise<IOwnerEntity[]> {
-    const findAllUOwners = await this.prisma.user.findMany();
-    return findAllUOwners;
+ 
+  async getAllOwners(): Promise<IOwnerEntity[]> {
+    try {
+      const allOwners = await this.prisma.user.findMany();
+      return allOwners;
+    } catch (err) {
+     throw new Exception ( Exceptions.DataBaseException, '${err.message}')
+    }
   }
 
   async findUserById(id: string): Promise<IOwnerEntity> {
