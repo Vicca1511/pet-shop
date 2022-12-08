@@ -22,7 +22,7 @@ export class ownerController {
 
   @Get()
   async getAllOwners(): Promise<IOwnerEntity[]> {
-    return this.service.getAllOwners();
+    return await this.service.getAllOwners();
   }
 
   @Get(':id')
