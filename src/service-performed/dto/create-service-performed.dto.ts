@@ -1,1 +1,8 @@
-export class CreateServicePerformedDto {}
+import { ApiProperty, } from "@nestjs/swagger";
+import { IsString } from "class-validator";
+
+export class CreateServicePerformedDto {
+    @ApiProperty()
+    @IsString()
+    treatmentId: string;
+}
