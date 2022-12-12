@@ -36,21 +36,23 @@ export class ownerController {
 
   @Post()
   async createOwner(
-    @Body() { name, cpf, email, password, petName, role }: ownerDto,
-  ): Promise <IHttpResponse<IOwnerEntity | null>> {
+    @Body(){ name, cpf, email, password, petName, role }: ownerDto,
+  ): Promise <IHttpResponse<IOwnerEntity | null> > {
     try {
       const result =  await this.service.createOwner({
+        
         name,
         cpf,
         email,
         password,
         petName,
         role,
+        
       });
       return {body: result  , statusCode: 200 , message: 'Owner created!'}
     } catch (err) {
       handleException(err);
-      return {body: null, statusCode: 200 , message: 'Owner created!'}
+      return {body: null, statusCode: 400 , message: 'Owner created Badly!'}
     }
   }
   @Patch()

@@ -34,7 +34,7 @@ export class OwnerRepository {
       const allOwners = await this.prisma.user.findMany();
       return allOwners;
     } catch (err) {
-     throw new Exception ( Exceptions.DataBaseException, '${err.message}')
+     throw new Exception(Exceptions.DataBaseException, '${err.message}')
     }
   }
 

@@ -1,26 +1,47 @@
 import { Injectable } from '@nestjs/common';
+import { randomUUID } from 'crypto';
 import { CreateTreatmentDto } from './dto/create-treatment.dto';
 import { UpdateTreatmentDto } from './dto/update-treatment.dto';
+import { Treatment } from './entities/treatment.entity';
 
 @Injectable()
 export class TreatmentsService {
-  async create(createTreatmentDto: CreateTreatmentDto) {
-    return 'This action adds a new treatment';
-  }async 
+  private _treatment: Treatment[] = [];
 
-  async findAll() {
-    return `This action returns all treatments`;
+  async create(createTreatmentDto: CreateTreatmentDto): Promise<Treatment>{
+    const createdTreatment = {
+      ...createTreatmentDto,
+      id: randomUUID(),
+      servicePerformed:[],
+    };
+    this._treatment.push(createdTreatment);
+    return createdTreatment;
+  }
+
+  async findAll(): Promise<Treatment[]> {
+    return this._treatment;
   }
 
   async findOne(id: string) {
-    return `This action returns a #${id} treatment`;
+    return this._treatment.find((treatment) => treatment.id === id);
   }
 
-  async update(id: number, updateTreatmentDto: UpdateTreatmentDto) {
-    return `This action updates a #${id} treatment`;
+  async update(id: string, updateTreatmentDto: UpdateTreatmentDto): Promise<Treatment> {
+    this._treatment.map((treatment , index) =>{
+      if(treatment.id === id){
+        const updatedTreatment = Object.assign(treatment , UpdateTreatmentDto)
+        this._treatment.splice(index, 1 , updatedTreatment);
+      }
+    })
+    return await this.findOne(id);
   }
 
-  async remove(id: number) {
-    return `This action removes a #${id} treatment`;
+  async remove(id: string): Promise<string> {
+    this._treatment.map((treatment , index) => {
+      if(treatment.id === id) {
+        this._treatment.splice(index , 1);
+  }})
+
+    return Promise.resolve(" File deleted successfully");
   }
 }

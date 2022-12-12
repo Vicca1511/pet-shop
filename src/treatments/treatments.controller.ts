@@ -24,11 +24,11 @@ export class TreatmentsController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTreatmentDto: UpdateTreatmentDto) {
-    return this.treatmentsService.update(+id, updateTreatmentDto);
+    return this.treatmentsService.update(id, updateTreatmentDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.treatmentsService.remove(+id);
+    return this.treatmentsService.remove(id);
   }
 }
