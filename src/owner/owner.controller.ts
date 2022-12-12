@@ -13,11 +13,11 @@ import { IHttpResponse } from 'src/utils/IHttpResponse';
 import { IOwnerEntity } from './entities/owner.entity';
 import { ownerDto } from './entities/services/dto/ownerImput.dto';
 import { partialOwnerDto } from './entities/services/dto/partialOwner.dto';
-import { ownerService } from './entities/services/owner.service';
+import { OwnerService  } from './entities/services/owner.service';
 
 @Controller('owner')
 export class ownerController {
-  constructor(private service: ownerService) {}
+  constructor(private service: OwnerService) {}
 
   @Get()
   async getAllOwners(): Promise<IOwnerEntity[]> {

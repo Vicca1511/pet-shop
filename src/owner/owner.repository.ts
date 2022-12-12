@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Exception } from 'src/utils/exceptions/exceptions';
-import { Exceptions } from 'src/utils/exceptions/exceptionsHelper';
+import { Exceptions, handleException } from 'src/utils/exceptions/exceptionsHelper';
 import { IOwnerEntity } from './entities/owner.entity';
 import { partialOwnerDto } from './entities/services/dto/partialOwner.dto';
 
@@ -39,10 +39,17 @@ export class OwnerRepository {
   }
 
   async findUserById(id: string): Promise<IOwnerEntity> {
-    const foundOwner = await this.prisma.user.findUniqueOrThrow({
-      where: { id: id },
-    });
+    
+    try {
+      const foundOwner = await this.prisma.user.findUniqueOrThrow({
+        where: { id: id },
+      });
+      return foundOwner;
+      
+    } catch (err) {
+      throw new Exception(Exceptions.DataBaseException, "Error while updating owner");
+    }
+    
 
-    return foundOwner;
   }
 }

@@ -8,7 +8,7 @@ import { Exceptions } from 'src/utils/exceptions/exceptionsHelper';
 import { Exception } from 'src/utils/exceptions/exceptions';
 
 @Injectable()
-export class ownerService {
+export class OwnerService {
   constructor(private readonly OwnerRepository: OwnerRepository) {}
 
   async createOwner(owner: ownerDto): Promise<IOwnerEntity> {

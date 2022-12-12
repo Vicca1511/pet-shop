@@ -12,6 +12,7 @@ import { CreateServicePerformedDto } from './dto/create-service-performed.dto';
 import { UpdateServicePerformedDto } from './dto/update-service-performed.dto';
 import { RegisterOnPerformedDto } from './dto/register-on-performed.dto';
 import { handleException } from 'src/utils/exceptions/exceptionsHelper';
+import { ownerDto } from 'src/owner/entities/services/dto/ownerImput.dto';
 
 @Controller('service-performed')
 export class ServicePerformedController {
@@ -26,14 +27,16 @@ export class ServicePerformedController {
 
   @Post('registerPerformed')
   async registerOnPerformed(
-    @Body() { servicePerformedId, ownerId }: RegisterOnPerformedDto,
+    @Body() { servicePerformedId, ownerId}: RegisterOnPerformedDto,
   ) {
     try {
       return this.servicePerformedService.RegisterServicePerformed(
         servicePerformedId,
+        ownerId[0] ,
+        
       );
-    } catch (error) {
-      handleException(error);
+    } catch (err) {
+      handleException(err);
     }
   }
 
@@ -49,14 +52,10 @@ export class ServicePerformedController {
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+   
     @Body() updateServicePerformedDto: UpdateServicePerformedDto,
   ) {
-    return this.servicePerformedService.update(id, updateServicePerformedDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.servicePerformedService.remove(id);
+    return this.servicePerformedService.update(updateServicePerformedDto);
   }
 }
+

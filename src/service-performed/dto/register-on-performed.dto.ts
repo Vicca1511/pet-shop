@@ -7,5 +7,5 @@ export class RegisterOnPerformedDto {
   servicePerformedId: string;
   @ApiProperty()
   @IsString()
-  ownerId: string;
+  ownerId: string[];
 }
