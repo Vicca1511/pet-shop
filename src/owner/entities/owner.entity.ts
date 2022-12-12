@@ -1,6 +1,5 @@
-import { ownerDto } from "./services/dto/ownerImput.dto";
+import { ownerDto } from './services/dto/ownerImput.dto';
 
-export interface IOwnerEntity extends ownerDto{
-    id: string
-   
+export interface IOwnerEntity extends ownerDto {
+  id: string;
 }

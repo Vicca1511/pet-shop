@@ -8,11 +8,11 @@ import { Treatment } from './entities/treatment.entity';
 export class TreatmentsService {
   private _treatment: Treatment[] = [];
 
-  async create(createTreatmentDto: CreateTreatmentDto): Promise<Treatment>{
+  async create(createTreatmentDto: CreateTreatmentDto): Promise<Treatment> {
     const createdTreatment = {
       ...createTreatmentDto,
       id: randomUUID(),
-      servicePerformed:[],
+      servicePerformed: [],
     };
     this._treatment.push(createdTreatment);
     return createdTreatment;
@@ -26,22 +26,26 @@ export class TreatmentsService {
     return this._treatment.find((treatment) => treatment.id === id);
   }
 
-  async update(id: string, updateTreatmentDto: UpdateTreatmentDto): Promise<Treatment> {
-    this._treatment.map((treatment , index) =>{
-      if(treatment.id === id){
-        const updatedTreatment = Object.assign(treatment , UpdateTreatmentDto)
-        this._treatment.splice(index, 1 , updatedTreatment);
+  async update(
+    id: string,
+    updateTreatmentDto: UpdateTreatmentDto,
+  ): Promise<Treatment> {
+    this._treatment.map((treatment, index) => {
+      if (treatment.id === id) {
+        const updatedTreatment = Object.assign(treatment, UpdateTreatmentDto);
+        this._treatment.splice(index, 1, updatedTreatment);
       }
-    })
+    });
     return await this.findOne(id);
   }
 
   async remove(id: string): Promise<string> {
-    this._treatment.map((treatment , index) => {
-      if(treatment.id === id) {
-        this._treatment.splice(index , 1);
-  }})
+    this._treatment.map((treatment, index) => {
+      if (treatment.id === id) {
+        this._treatment.splice(index, 1);
+      }
+    });
 
-    return Promise.resolve(" File deleted successfully");
+    return Promise.resolve(' File deleted successfully');
   }
 }

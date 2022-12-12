@@ -1,8 +1,8 @@
-import { ApiProperty, } from "@nestjs/swagger";
-import { IsString } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString } from 'class-validator';
 
 export class CreateServicePerformedDto {
-    @ApiProperty()
-    @IsString()
-    treatmentId: string;
+  @ApiProperty()
+  @IsString()
+  treatmentId: string;
 }

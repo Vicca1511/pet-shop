@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ServicePerformedService } from './service-performed.service';
 import { CreateServicePerformedDto } from './dto/create-service-performed.dto';
 import { UpdateServicePerformedDto } from './dto/update-service-performed.dto';
@@ -7,7 +15,9 @@ import { handleException } from 'src/utils/exceptions/exceptionsHelper';
 
 @Controller('service-performed')
 export class ServicePerformedController {
-  constructor(private readonly servicePerformedService: ServicePerformedService) {}
+  constructor(
+    private readonly servicePerformedService: ServicePerformedService,
+  ) {}
 
   @Post()
   create(@Body() createServicePerformedDto: CreateServicePerformedDto) {
@@ -15,10 +25,14 @@ export class ServicePerformedController {
   }
 
   @Post('registerPerformed')
-   async registerOnPerformed(@Body() { servicePerformedId, ownerId }: RegisterOnPerformedDto) {
+  async registerOnPerformed(
+    @Body() { servicePerformedId, ownerId }: RegisterOnPerformedDto,
+  ) {
     try {
-      return this.servicePerformedService.RegisterServicePerformed(servicePerformedId)
-    } catch(error) {
+      return this.servicePerformedService.RegisterServicePerformed(
+        servicePerformedId,
+      );
+    } catch (error) {
       handleException(error);
     }
   }
@@ -29,12 +43,15 @@ export class ServicePerformedController {
   }
 
   @Get(':id')
-  findOne( id: string) {
+  findOne(id: string) {
     return this.servicePerformedService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateServicePerformedDto: UpdateServicePerformedDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateServicePerformedDto: UpdateServicePerformedDto,
+  ) {
     return this.servicePerformedService.update(id, updateServicePerformedDto);
   }
 

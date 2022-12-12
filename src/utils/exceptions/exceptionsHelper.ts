@@ -19,7 +19,10 @@ export function handleException({ exception, message }: IException) {
     );
   }
 
-  if (exception === Exceptions.InvalidData || exception === Exceptions.NotFoundData) {
+  if (
+    exception === Exceptions.InvalidData ||
+    exception === Exceptions.NotFoundData
+  ) {
     throw new BadRequestException(message ? message : 'Data Error');
   }
 

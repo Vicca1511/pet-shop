@@ -28,13 +28,13 @@ export class OwnerRepository {
     });
     return deletedOwner;
   }
- 
+
   async getAllOwners(): Promise<IOwnerEntity[]> {
     try {
       const allOwners = await this.prisma.user.findMany();
       return allOwners;
     } catch (err) {
-     throw new Exception(Exceptions.DataBaseException, '${err.message}')
+      throw new Exception(Exceptions.DataBaseException, '${err.message}');
     }
   }
 

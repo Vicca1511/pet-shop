@@ -15,7 +15,6 @@ import { ownerDto } from './entities/services/dto/ownerImput.dto';
 import { partialOwnerDto } from './entities/services/dto/partialOwner.dto';
 import { ownerService } from './entities/services/owner.service';
 
-
 @Controller('owner')
 export class ownerController {
   constructor(private service: ownerService) {}
@@ -36,27 +35,25 @@ export class ownerController {
 
   @Post()
   async createOwner(
-    @Body(){ name, cpf, email, password, petName, role }: ownerDto,
-  ): Promise <IHttpResponse<IOwnerEntity | null> > {
+    @Body() { name, cpf, email, password, petName, role }: ownerDto,
+  ): Promise<IHttpResponse<IOwnerEntity | null>> {
     try {
-      const result =  await this.service.createOwner({
-        
+      const result = await this.service.createOwner({
         name,
         cpf,
         email,
         password,
         petName,
         role,
-        
       });
-      return {body: result  , statusCode: 200 , message: 'Owner created!'}
+      return { body: result, statusCode: 200, message: 'Owner created!' };
     } catch (err) {
       handleException(err);
-      return {body: null, statusCode: 400 , message: 'Owner created Badly!'}
+      return { body: null, statusCode: 400, message: 'Owner created Badly!' };
     }
   }
   @Patch()
-  async updateOwner(@Body() ownerData: partialOwnerDto) : Promise<IOwnerEntity> {
+  async updateOwner(@Body() ownerData: partialOwnerDto): Promise<IOwnerEntity> {
     try {
       return await this.service.updateOwner(ownerData);
     } catch (err) {
@@ -69,7 +66,7 @@ export class ownerController {
     try {
       const ownerIsDeleted = await this.service.deleteOwnerById(ownerId);
       if (ownerIsDeleted) {
-        return 'Owner deleted successfully'
+        return 'Owner deleted successfully';
       } else {
         return 'Owner not found';
       }

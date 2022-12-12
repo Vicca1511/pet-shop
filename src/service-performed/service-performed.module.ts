@@ -5,6 +5,6 @@ import { TreatmentsService } from 'src/treatments/treatments.service';
 
 @Module({
   controllers: [ServicePerformedController],
-  providers: [ServicePerformedService ,TreatmentsService]
+  providers: [ServicePerformedService, TreatmentsService],
 })
 export class ServicePerformedModule {}

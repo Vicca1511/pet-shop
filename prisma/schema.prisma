@@ -7,17 +7,48 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
-model User{
-  id String @id @unique
-  name String 
-  email String @unique
-  cpf String @unique
-  petName String
-  password String
-  role String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model User {
+  id          String @id @unique
+  treatmentId String
+
+  name             String
+  email            String    @unique
+  cpf              String    @unique
+  petName          String
+  password         String
+  role             String
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  Services         Service[]
+  serciceId        String?
+  treatmentOwnerId String?
+  Treatment        Treatment @relation(fields: [treatmentId], references: [id])
+
+  treatmentPetId String?
+}
+
+model Service {
+  id          String      @id
+  treatmentId String
+  ownerPet    User[]
+  startDate   DateTime
+  endDate     DateTime
+  moment      String
+  Treatments  Treatment[]
+}
+
+//  ClassroomStudent   Classroom?       @relation(fields: [classroomStudentId], references: [id], name: "classroom student")
+//   classroomStudentId String?
+//   ClassroomTeacher   Classroom?       @relation(fields: [classroomTeacherId], references: [id])
+//   classroomTeacherId String?
+
+model Treatment {
+  id               String    @id
+  name             String
+  treatment        String
+  servicePerformed Service[]
+  User             User[]
 }
