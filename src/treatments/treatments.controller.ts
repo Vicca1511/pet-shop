@@ -30,7 +30,7 @@ export class TreatmentsController {
     return this.treatmentsService.findOne(id);
   }
 
-  @Patch(':id')
+  @Patch()
   update(
     @Param('id') id: string,
     @Body() updateTreatmentDto: UpdateTreatmentDto,
