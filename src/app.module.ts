@@ -4,11 +4,12 @@ import { ownerController } from './owner/owner.controller';
 import { OwnerRepository } from './owner/owner.repository';
 import { DatabaseModule } from './prisma/dataBase.module';
 import { ServicePerformedModule } from './service-performed/service-performed.module';
+import { treatmentsRepository } from './treatments/treatments-repository';
 import { TreatmentsModule } from './treatments/treatments.module';
 
 @Module({
   imports: [DatabaseModule, ServicePerformedModule, TreatmentsModule, ],
   controllers: [ownerController],
-  providers: [OwnerService, OwnerRepository,],
+  providers: [OwnerService, OwnerRepository,treatmentsRepository],
 })
 export class AppModule {}

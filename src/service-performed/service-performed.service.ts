@@ -69,6 +69,7 @@ export class ServicePerformedService {
     return await this.servicePerformedRepository.updateServicePerformed({
       id:servicePerformedId,
       ownerIds: [ownerIds],
+      treatmentId:""
     })
   }
 

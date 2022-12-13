@@ -4,13 +4,14 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { ServicePerformed } from 'src/service-performed/entities/service-performed.entity';
 import { CreateTreatmentDto } from './dto/create-treatment.dto';
 import { UpdateTreatmentDto } from './dto/update-treatment.dto';
+import { TreatmentEntity } from './entities/treatment.entity';
 
 
 @Injectable()
 export class treatmentsRepository {
   constructor(
     private readonly prismaService: PrismaService,
-    private readonly returnData = { ownerPet: true, servicePerformed: true },
+    private readonly returnData = { ownerPetIds: true, servicePerformed: true },
   ) {}
 
   async createTreatment({

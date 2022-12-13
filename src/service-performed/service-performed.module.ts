@@ -8,6 +8,7 @@ import { treatmentsRepository } from 'src/treatments/treatments-repository';
 import { OwnerRepository } from 'src/owner/owner.repository';
 import { OwnerService } from 'src/owner/entities/services/owner.service';
 
+
 @Module({
   imports: [DatabaseModule],
   controllers: [ServicePerformedController],
@@ -17,7 +18,8 @@ import { OwnerService } from 'src/owner/entities/services/owner.service';
     TreatmentsService,
     treatmentsRepository,
     OwnerRepository,
-    OwnerService
+   
+   
     
   ],
 })

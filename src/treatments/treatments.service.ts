@@ -5,7 +5,6 @@ import { Exception } from 'src/utils/exceptions/exceptions';
 import { Exceptions } from 'src/utils/exceptions/exceptionsHelper';
 import { CreateTreatmentDto } from './dto/create-treatment.dto';
 import { UpdateTreatmentDto } from './dto/update-treatment.dto';
-import { TreatmentOffered } from './entities/treatment.entity';
 import { treatmentsRepository } from './treatments-repository';
 
 @Injectable()
