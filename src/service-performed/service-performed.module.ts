@@ -3,18 +3,22 @@ import { ServicePerformedService } from './service-performed.service';
 import { ServicePerformedController } from './service-performed.controller';
 import { TreatmentsService } from 'src/treatments/treatments.service';
 import { ServicePerformedRepository } from './service-performed-repository';
+import { DatabaseModule } from 'src/prisma/dataBase.module';
+import { treatmentsRepository } from 'src/treatments/treatments-repository';
 import { OwnerRepository } from 'src/owner/owner.repository';
 import { OwnerService } from 'src/owner/entities/services/owner.service';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { DatabaseModule } from 'src/prisma/dataBase.module';
-
 
 @Module({
-  imports: [DatabaseModule] ,
+  imports: [DatabaseModule],
   controllers: [ServicePerformedController],
-  providers: [ServicePerformedService, TreatmentsService,  ServicePerformedRepository, OwnerService , OwnerRepository , PrismaService ],
-
-  
-  
+  providers: [
+    ServicePerformedRepository,
+    ServicePerformedService,
+    TreatmentsService,
+    treatmentsRepository,
+    OwnerRepository,
+    OwnerService
+    
+  ],
 })
 export class ServicePerformedModule {}
